@@ -1,15 +1,17 @@
-import { Button } from "@workspace/ui/components/button"
+"use client";
+
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import { api } from "@workspace/backend/_generated/api";
+import { useQuery } from "convex/react";
 
 export default function Page() {
+  const widgetSettings = useQuery(api.private.widgetSettings.getOne);
+
   return (
-    <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Hello World</h1>
-        <div className="flex gap-2">
-          <Button>Button</Button>
-          <Button variant="outline">Outline</Button>
-        </div>
-      </div>
+    <div className="flex flex-col gap-5 items-center justify-center min-h-svh">
+      <UserButton showName />
+      <OrganizationSwitcher hidePersonal={true} skipInvitationScreen />
+      <pre>{JSON.stringify(widgetSettings)}</pre>
     </div>
-  )
+  );
 }

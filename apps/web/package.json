@@ -13,8 +13,11 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
+    "@clerk/nextjs": "^6.37.3",
+    "@workspace/backend": "workspace:*",
     "@workspace/ui": "workspace:*",
     "cmdk": "^1.1.1",
+    "convex": "^1.31.7",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
