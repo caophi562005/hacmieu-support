@@ -1,10 +1,10 @@
 {
-  "name": "web",
+  "name": "widget",
   "version": "0.0.1",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 3000",
+    "dev": "next dev --turbopack --port 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,22 +12,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@base-ui/react": "^1.1.0",
     "@workspace/ui": "workspace:*",
-    "cmdk": "^1.1.1",
-    "date-fns": "^4.1.0",
-    "embla-carousel-react": "^8.6.0",
-    "input-otp": "^1.4.2",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",
     "next-themes": "^0.4.6",
     "react": "^19.2.4",
-    "react-day-picker": "^9.13.2",
-    "react-dom": "^19.2.4",
-    "react-resizable-panels": "^4.6.2",
-    "recharts": "2.15.4",
-    "sonner": "^2.0.7",
-    "vaul": "^1.1.2"
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
