@@ -5,13 +5,11 @@ export default defineSchema({
   widgetSettings: defineTable({
     organizationId: v.string(),
     greetingMessage: v.optional(v.string()),
-    defaultSuggestions: v.optional(
-      v.object({
-        suggestion1: v.optional(v.string()),
-        suggestion2: v.optional(v.string()),
-        suggestion3: v.optional(v.string()),
-      }),
-    ),
+    defaultSuggestions: v.object({
+      suggestion1: v.optional(v.string()),
+      suggestion2: v.optional(v.string()),
+      suggestion3: v.optional(v.string()),
+    }),
     theme: v.optional(v.string()),
   }).index("by_organization_id", ["organizationId"]),
 

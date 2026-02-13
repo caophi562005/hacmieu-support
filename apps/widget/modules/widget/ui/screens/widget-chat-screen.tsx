@@ -12,8 +12,8 @@ import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@workspace/backend/_generated/api";
 import {
-  AIConversation,
-  AIConversationContent,
+  Conversation,
+  ConversationContent,
 } from "@workspace/ui/components/ai/conversation";
 import {
   AIInput,
@@ -22,13 +22,13 @@ import {
   AIInputToolbar,
 } from "@workspace/ui/components/ai/input";
 import {
-  AIMessage,
-  AIMessageContent,
+  Message,
+  MessageContent,
+  MessageResponse,
 } from "@workspace/ui/components/ai/message";
-import { AIResponse } from "@workspace/ui/components/ai/response";
 import {
-  AISuggestion,
-  AISuggestions,
+  Suggestion,
+  Suggestions,
 } from "@workspace/ui/components/ai/suggestion";
 import { Button } from "@workspace/ui/components/button";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
@@ -130,8 +130,8 @@ export const WidgetChatScreen = () => {
           <MenuIcon />
         </Button>
       </WidgetHeader>
-      <AIConversation>
-        <AIConversationContent>
+      <Conversation>
+        <ConversationContent>
           <InfiniteScrollTrigger
             canLoadMore={canLoadMore}
             isLoadingMore={isLoadingMore}
@@ -140,35 +140,32 @@ export const WidgetChatScreen = () => {
           />
           {toUIMessages(messages.results ?? [])?.map((message) => {
             return (
-              <AIMessage
+              <Message
                 from={message.role === "user" ? "user" : "assistant"}
                 key={message.id}
+                className="flex flex-row items-center"
               >
-                <AIMessageContent>
-                  <AIResponse>{message.text}</AIResponse>
-                </AIMessageContent>
                 {message.role === "assistant" && (
-                  <DicebearAvatar
-                    imageUrl="/logo.svg"
-                    seed="assistant"
-                    size={32}
-                  />
+                  <DicebearAvatar seed="assistant" size={32} />
                 )}
-              </AIMessage>
+                <MessageContent>
+                  <MessageResponse>{message.text}</MessageResponse>
+                </MessageContent>
+              </Message>
             );
           })}
-        </AIConversationContent>
-      </AIConversation>
+        </ConversationContent>
+      </Conversation>
 
       {toUIMessages(messages.results ?? [])?.length === 1 && (
-        <AISuggestions className="flex w-full flex-col items-end p-2">
+        <Suggestions className="flex w-full flex-col items-end p-2">
           {suggestions.map((suggestion) => {
             if (!suggestion) {
               return null;
             }
 
             return (
-              <AISuggestion
+              <Suggestion
                 key={suggestion}
                 onClick={() => {
                   form.setValue("message", suggestion, {
@@ -182,7 +179,7 @@ export const WidgetChatScreen = () => {
               />
             );
           })}
-        </AISuggestions>
+        </Suggestions>
       )}
 
       <Form {...form}>

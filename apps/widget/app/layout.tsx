@@ -12,7 +12,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="h-screen w-screen">{children}</div>
+        </Providers>
       </body>
     </html>
   );
