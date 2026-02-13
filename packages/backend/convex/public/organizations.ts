@@ -19,6 +19,8 @@ export const validate = action({
       if (organization) {
         return {
           valid: true,
+          widgetSettings: organization.publicMetadata?.widgetSettings,
+          imageUrl: organization.imageUrl,
         };
       } else {
         return {

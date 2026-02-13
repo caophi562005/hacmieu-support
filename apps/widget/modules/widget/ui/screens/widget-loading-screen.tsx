@@ -8,14 +8,14 @@ import {
   screenAtom,
   widgetSettingsAtom,
 } from "@/modules/widget/atoms/widget-atom";
-import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
 import { api } from "@workspace/backend/_generated/api";
-import { useAction, useMutation, useQuery } from "convex/react";
+import { WidgetSettingsType } from "@workspace/backend/types";
+import { useAction, useMutation } from "convex/react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-type InitStep = "org" | "session" | "settings" | "done";
+type InitStep = "org" | "session" | "done";
 
 export const WidgetLoadingScreen = ({
   organizationId,
@@ -55,6 +55,10 @@ export const WidgetLoadingScreen = ({
       .then((result) => {
         if (result.valid) {
           setOrganizationId(organizationId);
+          setWidgetSettings({
+            ...(result.widgetSettings as WidgetSettingsType),
+            imageUrl: result.imageUrl!,
+          });
           setStep("session");
         } else {
           setErrorMessage(result.reason || "Something went wrong");
@@ -87,7 +91,7 @@ export const WidgetLoadingScreen = ({
 
     if (!contactSessionId) {
       setSessionValid(false);
-      setStep("settings");
+      setStep("done");
       return;
     }
 
@@ -96,34 +100,13 @@ export const WidgetLoadingScreen = ({
     validateContactSession({ contactSessionId })
       .then((result) => {
         setSessionValid(result.valid);
-        setStep("settings");
+        setStep("done");
       })
       .catch(() => {
         setSessionValid(false);
-        setStep("settings");
+        setStep("done");
       });
   }, [step, contactSessionId, validateContactSession, setLoadingMessage]);
-
-  //B3: Load widget settings
-  const widgetSettings = useQuery(
-    api.public.widgetSettings.getByOrganizationId,
-    organizationId
-      ? {
-          organizationId,
-        }
-      : "skip",
-  );
-
-  useEffect(() => {
-    if (step !== "settings") return;
-
-    setLoadingMessage("Loading widget setting...");
-
-    if (widgetSettings !== undefined && organizationId) {
-      setWidgetSettings(widgetSettings);
-      setStep("done");
-    }
-  }, [step, widgetSettings, setWidgetSettings, setStep, setLoadingMessage]);
 
   useEffect(() => {
     if (step !== "done") return;
@@ -135,12 +118,6 @@ export const WidgetLoadingScreen = ({
 
   return (
     <>
-      <WidgetHeader>
-        <div className="flex flex-col justify-between gap-y-2 px-2 py-6 font-semibold ">
-          <p className="text-3xl">Hi there! 👋</p>
-          <p className="text-lg">Let's get you started</p>
-        </div>
-      </WidgetHeader>
       <div className="flex flex-1 flex-col items-center justify-center gap-y-4 p-4 text-muted-foreground">
         <Loader2Icon className="animate-spin" />
         <p className="text-sm">{loadingMessage}</p>

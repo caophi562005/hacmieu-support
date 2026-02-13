@@ -105,6 +105,7 @@ export const create = mutation({
   args: {
     organizationId: v.string(),
     contactSessionId: v.id("contactSessions"),
+    greetingMessage: v.string(),
   },
   handler: async (ctx, args) => {
     const session = await ctx.db.get(args.contactSessionId);
@@ -119,13 +120,6 @@ export const create = mutation({
       contactSessionId: args.contactSessionId,
     });
 
-    const widgetSettings = await ctx.db
-      .query("widgetSettings")
-      .withIndex("by_organization_id", (q) =>
-        q.eq("organizationId", args.organizationId),
-      )
-      .unique();
-
     const { threadId } = await supportAgent.createThread(ctx, {
       userId: args.organizationId,
     });
@@ -134,8 +128,7 @@ export const create = mutation({
       threadId,
       message: {
         role: "assistant",
-        content:
-          widgetSettings?.greetingMessage || "Hello, how can I help you?",
+        content: args.greetingMessage,
       },
     });
 

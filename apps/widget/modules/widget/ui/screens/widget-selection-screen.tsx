@@ -6,6 +6,7 @@ import {
   errorMessageAtom,
   organizationIdAtom,
   screenAtom,
+  widgetSettingsAtom,
 } from "@/modules/widget/atoms/widget-atom";
 import { WidgetFooter } from "@/modules/widget/ui/components/widget-footer";
 import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
@@ -33,6 +34,8 @@ export const WidgetSelectionScreen = () => {
   const createConversation = useMutation(api.public.conversations.create);
   const [isPending, setIsPending] = useState(false);
 
+  const widgetSettings = useAtomValue(widgetSettingsAtom);
+
   const handleNewConversation = async () => {
     setIsPending(true);
 
@@ -51,6 +54,8 @@ export const WidgetSelectionScreen = () => {
       const conversationId = await createConversation({
         organizationId,
         contactSessionId,
+        greetingMessage:
+          widgetSettings?.greetingMessage || "Hello, how can I help you?",
       });
 
       setConversationId(conversationId);

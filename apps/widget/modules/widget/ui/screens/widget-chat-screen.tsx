@@ -34,10 +34,11 @@ import { Button } from "@workspace/ui/components/button";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { Form, FormField } from "@workspace/ui/components/form";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
+import { ModeToggle } from "@workspace/ui/components/mode-toggle";
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
 import { useAction, useQuery } from "convex/react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { ArrowLeftIcon, MenuIcon } from "lucide-react";
+import { ArrowLeftIcon } from "lucide-react";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -126,9 +127,7 @@ export const WidgetChatScreen = () => {
           <p>Chat</p>
         </div>
 
-        <Button size={"icon"} variant={"transparent"}>
-          <MenuIcon />
-        </Button>
+        <ModeToggle />
       </WidgetHeader>
       <Conversation>
         <ConversationContent>
@@ -146,7 +145,11 @@ export const WidgetChatScreen = () => {
                 className="flex flex-row items-center"
               >
                 {message.role === "assistant" && (
-                  <DicebearAvatar seed="assistant" size={32} />
+                  <DicebearAvatar
+                    imageUrl={widgetSettings?.imageUrl}
+                    seed="assistant"
+                    size={32}
+                  />
                 )}
                 <MessageContent>
                   <MessageResponse>{message.text}</MessageResponse>
