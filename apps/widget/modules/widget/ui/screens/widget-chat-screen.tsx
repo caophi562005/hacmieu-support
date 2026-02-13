@@ -35,7 +35,10 @@ import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { Form, FormField } from "@workspace/ui/components/form";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
 import { ModeToggle } from "@workspace/ui/components/mode-toggle";
-import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
+import {
+  LOAD_SIZE,
+  useInfiniteScroll,
+} from "@workspace/ui/hooks/use-infinite-scroll";
 import { useAction, useQuery } from "convex/react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { ArrowLeftIcon } from "lucide-react";
@@ -71,7 +74,7 @@ export const WidgetChatScreen = () => {
       ? { threadId: conversation.threadId, contactSessionId }
       : "skip",
     {
-      initialNumItems: 10,
+      initialNumItems: LOAD_SIZE,
     },
   );
 
@@ -79,7 +82,7 @@ export const WidgetChatScreen = () => {
     useInfiniteScroll({
       status: messages.status,
       loadMore: messages.loadMore,
-      loadSize: 10,
+      loadSize: LOAD_SIZE,
     });
 
   const form = useForm<z.infer<typeof formSchema>>({

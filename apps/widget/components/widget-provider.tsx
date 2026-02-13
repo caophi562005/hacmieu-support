@@ -4,7 +4,7 @@ import { widgetSettingsAtom } from "@/modules/widget/atoms/widget-atom";
 import { useAtomValue } from "jotai";
 import { useCallback, useEffect } from "react";
 
-const DEFAULT_THEME = "doom-64";
+const DEFAULT_THEME = "bubblegum";
 
 function ThemeScript() {
   const scriptContent = `
