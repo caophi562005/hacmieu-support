@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "@workspace/backend/_generated/api";
-import { useQuery } from "convex/react";
+import { useAction } from "convex/react";
 import {
   createContext,
   useCallback,
@@ -10,17 +10,15 @@ import {
   useState,
 } from "react";
 
-type Theme = "bubblegum" | "vintage-paper" | "doom-64";
-
 interface ThemeContextType {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
+  theme: string;
+  setTheme: (theme: string) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const STORAGE_KEY = "widget-theme";
-const DEFAULT_THEME: Theme = "bubblegum";
+const DEFAULT_THEME = "bubblegum";
 
 function ThemeScript() {
   const scriptContent = `
@@ -53,35 +51,39 @@ function ThemeScript() {
 }
 
 export function WidgetProvider({ children }: { children: React.ReactNode }) {
-  const widgetSettings = useQuery(
+  const getWidgetSettings = useAction(
     api.public.widgetSettings.getByOrganizationId,
-    {
-      organizationId: "org_39YyzfYRXyMSK7fCI7QT4Le8vNB",
-    },
   );
 
-  const [theme, setThemeState] = useState<Theme>(() => {
+  const [theme, setThemeState] = useState<string>(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem(STORAGE_KEY);
-      return (stored as Theme) || DEFAULT_THEME;
+      return (stored as string) || DEFAULT_THEME;
     }
     return DEFAULT_THEME;
   });
 
   useEffect(() => {
-    if (!widgetSettings?.theme) return;
+    getWidgetSettings({ organizationId: "org_39YyzfYRXyMSK7fCI7QT4Le8vNB" })
+      .then((result) => {
+        if (result.valid && result.widgetSettings?.theme) {
+          const currentTheme = localStorage.getItem(STORAGE_KEY);
 
-    const convexTheme = widgetSettings.theme as Theme;
-    const currentTheme = localStorage.getItem(STORAGE_KEY);
+          if (currentTheme !== result.widgetSettings.theme) {
+            setThemeState(result.widgetSettings.theme);
+            localStorage.setItem(STORAGE_KEY, result.widgetSettings.theme);
+            applyTheme(result.widgetSettings.theme);
+          }
+        } else {
+          console.log(result.reason);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-    if (convexTheme !== currentTheme) {
-      setThemeState(convexTheme);
-      localStorage.setItem(STORAGE_KEY, convexTheme);
-      applyTheme(convexTheme);
-    }
-  }, [widgetSettings?.theme]);
-
-  const applyTheme = useCallback((newTheme: Theme) => {
+  const applyTheme = useCallback((newTheme: string) => {
     document.body.className = `${newTheme} font-sans antialiased`;
 
     const oldLink = document.querySelector('link[href^="/fonts/"]');
@@ -96,7 +98,7 @@ export function WidgetProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const setTheme = useCallback(
-    async (newTheme: Theme) => {
+    async (newTheme: string) => {
       setThemeState(newTheme);
       localStorage.setItem(STORAGE_KEY, newTheme);
       applyTheme(newTheme);

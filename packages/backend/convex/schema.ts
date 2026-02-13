@@ -4,13 +4,15 @@ import { v } from "convex/values";
 export default defineSchema({
   widgetSettings: defineTable({
     organizationId: v.string(),
-    greetingMessage: v.string(),
-    defaultSuggestions: v.object({
-      suggestion1: v.optional(v.string()),
-      suggestion2: v.optional(v.string()),
-      suggestion3: v.optional(v.string()),
-    }),
-    theme: v.string(),
+    greetingMessage: v.optional(v.string()),
+    defaultSuggestions: v.optional(
+      v.object({
+        suggestion1: v.optional(v.string()),
+        suggestion2: v.optional(v.string()),
+        suggestion3: v.optional(v.string()),
+      }),
+    ),
+    theme: v.optional(v.string()),
   }).index("by_organization_id", ["organizationId"]),
 
   conversations: defineTable({
@@ -38,7 +40,6 @@ export default defineSchema({
         userAgent: v.optional(v.string()),
         language: v.optional(v.string()),
         languages: v.optional(v.string()),
-        platform: v.optional(v.string()),
         vendor: v.optional(v.string()),
         screenResolution: v.optional(v.string()),
         viewportSize: v.optional(v.string()),
