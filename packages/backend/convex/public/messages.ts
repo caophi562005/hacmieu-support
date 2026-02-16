@@ -58,12 +58,11 @@ export const create = action({
       status: "active",
     };
 
-    // TODO: Implement subscription check
     const shouldTriggerAgent =
       conversation.status === "unresolved" && subscription?.status === "active";
 
     if (shouldTriggerAgent) {
-      await supportAgent.generateText(
+      const { text, savedMessages } = await supportAgent.generateText(
         ctx,
         {
           threadId: args.threadId,
@@ -77,14 +76,34 @@ export const create = action({
           },
         },
       );
+
+      await ctx.runMutation(internal.system.messages.create, {
+        conversationId: conversation._id,
+        message: {
+          text: text,
+          role: "assistant",
+          _creationTime: savedMessages![0]._creationTime,
+        },
+      });
     } else {
-      await saveMessage(ctx, components.agent, {
+      const { message } = await saveMessage(ctx, components.agent, {
         threadId: args.threadId,
         message: {
           role: "user",
           content: args.prompt,
         },
       });
+
+      if (message) {
+        await ctx.runMutation(internal.system.messages.create, {
+          conversationId: conversation._id,
+          message: {
+            text: message.text!,
+            role: "user",
+            _creationTime: message._creationTime,
+          },
+        });
+      }
     }
   },
 });

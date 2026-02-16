@@ -115,7 +115,7 @@ export const ConversationsPanel = () => {
           <div className="flex w-full flex-1 flex-col text-sm">
             {conversations.results.map((conversation) => {
               const isLastMessageFromOperator =
-                conversation.lastMessage?.message?.role !== "user";
+                conversation.lastMessage?.role !== "user";
 
               const country = getCountryFromTimezone(
                 conversation.contactSession.metadata?.timezone,
@@ -155,7 +155,10 @@ export const ConversationsPanel = () => {
                         {conversation.contactSession.name}
                       </span>
                       <span className="ml-auto shrink-0 text-muted-foreground text-xs">
-                        {formatDistanceToNow(conversation._creationTime)}
+                        {conversation.lastMessage &&
+                          formatDistanceToNow(
+                            conversation.lastMessage._creationTime as number,
+                          )}
                       </span>
                     </div>
                     <div className="mt-1 flex items-center justify-between gap-2">

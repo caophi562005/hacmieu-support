@@ -71,7 +71,7 @@ export const create = mutation({
       });
     }
 
-    await saveMessage(ctx, components.agent, {
+    const message = await saveMessage(ctx, components.agent, {
       threadId: conversation.threadId,
       agentName: identity.familyName,
       message: {
@@ -79,6 +79,16 @@ export const create = mutation({
         content: args.prompt,
       },
     });
+
+    if (message) {
+      await ctx.db.patch(args.conversationId, {
+        lastMessage: {
+          text: message.message.text!,
+          role: "assistant",
+          _creationTime: message.message._creationTime,
+        },
+      });
+    }
   },
 });
 

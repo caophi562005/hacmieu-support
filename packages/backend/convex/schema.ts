@@ -11,6 +11,13 @@ export default defineSchema({
       v.literal("resolved"),
       v.literal("escalated"),
     ),
+    lastMessage: v.optional(
+      v.object({
+        text: v.string(),
+        role: v.union(v.literal("user"), v.literal("assistant")),
+        _creationTime: v.number(),
+      }),
+    ),
   })
     .index("by_organization_id", ["organizationId"])
     .index("by_contact_session_id", ["contactSessionId"])
