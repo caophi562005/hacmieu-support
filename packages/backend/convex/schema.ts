@@ -2,6 +2,24 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  subscriptions: defineTable({
+    organizationId: v.string(),
+    plan: v.string(),
+    expiresAt: v.number(),
+  }).index("by_organization_id", ["organizationId"]),
+
+  payment: defineTable({
+    organizationId: v.string(),
+    amount: v.number(),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("success"),
+      v.literal("failed"),
+    ),
+    type: v.union(v.literal("subscription"), v.literal("one_time")),
+    paymentMethod: v.union(v.literal("qr"), v.literal("credit_card")),
+  }).index("by_organization_id", ["organizationId"]),
+
   conversations: defineTable({
     threadId: v.string(),
     organizationId: v.string(),

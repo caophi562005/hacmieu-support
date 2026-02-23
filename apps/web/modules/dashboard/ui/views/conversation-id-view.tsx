@@ -29,7 +29,6 @@ import {
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { Form, FormField } from "@workspace/ui/components/form";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
-import { ModeToggle } from "@workspace/ui/components/mode-toggle";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 import {
   LOAD_SIZE,
@@ -147,12 +146,6 @@ export const ConversationIdView = ({ conversationId }: Props) => {
   return (
     <div className="flex h-full flex-col bg-muted">
       <header className="flex items-center justify-between border-b bg-background p-2.5">
-        {/* <Button size={"sm"} variant={"ghost"}>
-          <MoreHorizontalIcon />
-        </Button> */}
-
-        <ModeToggle />
-
         {!!conversation && (
           <ConversationStatusButton
             status={conversation?.status}

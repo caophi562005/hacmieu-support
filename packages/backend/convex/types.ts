@@ -8,3 +8,18 @@ export type WidgetSettingsType = {
   };
   theme: string;
 };
+
+export type WebhookTransactionType = {
+  id: number;
+  gateway: string;
+  transactionDate: string;
+  transferType: "in" | "out";
+  transferAmount: number;
+  accumulated: number;
+  description: string;
+  accountNumber?: string | undefined;
+  code?: string | undefined;
+  content?: string | undefined;
+  subAccount?: string | null | undefined;
+  referenceCode?: string | undefined;
+};
