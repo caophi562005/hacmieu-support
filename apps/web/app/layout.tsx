@@ -15,6 +15,10 @@ export default function RootLayout({
         <link rel="stylesheet" href="/fonts/bubblegum.font.css" />
       </head>
       <body className="bubblegum font-sans antialiased">
+        <script
+          src="https://support-widget.hacmieu.xyz/widget.js"
+          data-organization-id="org_3A6xO4eu9EyIrIGyP8QyyVKuYJh"
+        />
         <ClerkProvider>
           <Providers>
             <TooltipProvider>
