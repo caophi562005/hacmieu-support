@@ -29,7 +29,7 @@ export const IntegrationsView = () => {
 
   const handleIntegrationClick = (integrationId: IntegrationId) => {
     if (!organization) {
-      toast.error("Organization ID not found");
+      toast.error("Không tìm thấy Organization ID");
       return;
     }
 
@@ -41,9 +41,9 @@ export const IntegrationsView = () => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(organization?.id ?? "");
-      toast.success("Copied to clipboard");
+      toast.success("Đã sao chép vào bộ nhớ tạm");
     } catch {
-      toast.error("Failed to copy to clipboard");
+      toast.error("Sao chép thất bại");
     }
   };
 
@@ -56,11 +56,11 @@ export const IntegrationsView = () => {
       />
 
       <div className="flex min-h-screen flex-col bg-muted p-8">
-        <div className="mx-auto w-full max-w-screen-md">
+        <div className="mx-auto w-full max-w-3xl">
           <div className="space-y-2">
-            <h1 className="text-2xl md:text-4xl">Setup & Integrations</h1>
+            <h1 className="text-2xl md:text-4xl">Cài đặt & Tích hợp</h1>
             <p className="text-muted-foreground">
-              Choose the integration that&apos;s right for you
+              Chọn phương thức tích hợp phù hợp với bạn
             </p>
           </div>
 
@@ -80,7 +80,7 @@ export const IntegrationsView = () => {
 
               <Button className="gap-2" onClick={handleCopy} size="sm">
                 <CopyIcon className="size-4" />
-                Copy
+                Sao chép
               </Button>
             </div>
           </div>
@@ -88,9 +88,9 @@ export const IntegrationsView = () => {
           <Separator className="my-8" />
           <div className="space-y-6">
             <div className="space-y-1">
-              <Label className="text-lg">Integrations</Label>
+              <Label className="text-lg">Tích hợp</Label>
               <p className="text-muted-foreground text-sm">
-                Add the following code to your website to enable the chatbox
+                Thêm đoạn mã sau vào website của bạn để bật khung chat
               </p>
             </div>
 
@@ -131,9 +131,9 @@ export const IntegrationsDialog = ({
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(snippet);
-      toast.success("Copied to clipboard");
+      toast.success("Đã sao chép vào bộ nhớ tạm");
     } catch {
-      toast.error("Failed to copy to clipboard");
+      toast.error("Sao chép thất bại");
     }
   };
 
@@ -141,20 +141,20 @@ export const IntegrationsDialog = ({
     <Dialog onOpenChange={onOpenChange} open={open}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Integrate with your website</DialogTitle>
+          <DialogTitle>Tích hợp vào website của bạn</DialogTitle>
           <DialogDescription>
-            Follow these steps to add the chatbox to your website
+            Làm theo các bước sau để thêm khung chat vào website
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">
           <div className="space-y-2">
             <div className="rounded-md bg-accent p-2 text-sm">
-              1. Copy the following code
+              1. Sao chép đoạn mã sau
             </div>
 
             <div className="group relative">
-              <pre className="max-h-[300px] overflow-x-auto overflow-y-auto whitespace-pre-wrap break-all rounded-md bg-foreground p-2 font-mono text-secondary text-sm">
+              <pre className="max-h-75 overflow-x-auto overflow-y-auto whitespace-pre-wrap break-all rounded-md bg-foreground p-2 font-mono text-secondary text-sm">
                 {snippet}
               </pre>
 
@@ -171,12 +171,12 @@ export const IntegrationsDialog = ({
 
           <div className="space-y-2">
             <div className="rounded-md bg-accent p-2 text-sm">
-              2. Add the code in your page
+              2. Thêm đoạn mã vào trang của bạn
             </div>
 
             <p className="text-muted-foreground text-sm">
-              Paste the chatbox code above in your page. You can add it in the
-              HTML head section.
+              Dán đoạn mã trên trang web của bạn. Bạn nên thêm nó vào bên trong
+              thẻ HTML head.
             </p>
           </div>
         </div>

@@ -16,18 +16,20 @@ import { QrScreen } from "../screens/qr-screen";
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  type?: "subscription_creation" | "subscription_renewal";
 }
 
 type Step = "select" | "qr";
 
-export const PaymentDialog = ({ onOpenChange, open }: Props) => {
+export const PaymentDialog = ({
+  onOpenChange,
+  open,
+  type = "subscription_creation",
+}: Props) => {
   const [step, setStep] = useState<Step>("select");
 
   const handleOpenChange = (newOpen: boolean) => {
     onOpenChange(newOpen);
-    if (!newOpen) {
-      setTimeout(() => setStep("select"), 300); // Reset step after closing animation
-    }
   };
 
   return (
@@ -35,12 +37,14 @@ export const PaymentDialog = ({ onOpenChange, open }: Props) => {
       <DialogContent className="max-w-md bg-white!">
         <DialogHeader>
           <DialogTitle>
-            {step === "select" ? "Choose Payment Method" : "QR Payment"}
+            {step === "select"
+              ? "Chọn phương thức thanh toán"
+              : "Thanh toán QR"}
           </DialogTitle>
           <DialogDescription>
             {step === "select"
-              ? "Select your preferred payment method"
-              : "Scan the QR code to make a payment"}
+              ? "Chọn phương thức thanh toán phù hợp với bạn"
+              : "Quét mã QR để thực hiện thanh toán"}
           </DialogDescription>
         </DialogHeader>
 
@@ -52,7 +56,7 @@ export const PaymentDialog = ({ onOpenChange, open }: Props) => {
               type="button"
             >
               <CreditCard className="size-10 text-muted-foreground" />
-              <span className="font-medium">Credit Card</span>
+              <span className="font-medium">Thẻ tín dụng</span>
             </button>
 
             <button
@@ -61,11 +65,11 @@ export const PaymentDialog = ({ onOpenChange, open }: Props) => {
               type="button"
             >
               <QrCode className="size-10" />
-              <span className="font-medium">QR Code</span>
+              <span className="font-medium">Mã QR</span>
             </button>
           </div>
         ) : (
-          <QrScreen />
+          <QrScreen type={type} />
         )}
 
         <DialogFooter className="gap-2 sm:gap-0">
@@ -76,13 +80,12 @@ export const PaymentDialog = ({ onOpenChange, open }: Props) => {
               className="mr-auto"
             >
               <ArrowLeft className="mr-2 size-4" />
-              Back
+              Quay lại
             </Button>
           )}
           <Button variant="outline" onClick={() => handleOpenChange(false)}>
-            Close
+            Đóng
           </Button>
-          {step === "qr" && <Button>I have paid</Button>}
         </DialogFooter>
       </DialogContent>
     </Dialog>

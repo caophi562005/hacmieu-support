@@ -55,7 +55,8 @@ export const WidgetSelectionScreen = () => {
         organizationId,
         contactSessionId,
         greetingMessage:
-          widgetSettings?.greetingMessage || "Hello, how can I help you?",
+          widgetSettings?.greetingMessage ||
+          "Xin chào, tôi có thể giúp gì cho bạn?",
       });
 
       setConversationId(conversationId);
@@ -70,8 +71,8 @@ export const WidgetSelectionScreen = () => {
     <>
       <WidgetHeader>
         <div className="flex flex-col justify-between gap-y-2 px-2 py-6 font-semibold ">
-          <p className="text-3xl">Hi there! 👋</p>
-          <p className="text-lg">Let's get you started</p>
+          <p className="text-3xl">Xin chào! 👋</p>
+          <p className="text-lg">Hãy bắt đầu nào</p>
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col gap-y-4 p-4 overflow-y-auto">
@@ -83,24 +84,26 @@ export const WidgetSelectionScreen = () => {
         >
           <div className="flex items-center gap-x-2">
             <MessageSquareTextIcon className="size-4" />
-            <span>Start chat</span>
+            <span>Bắt đầu chat</span>
           </div>
           <ChevronRightIcon />
         </Button>
 
-        <Button
-          className="h-16 w-full justify-between"
-          variant="outline"
-          onClick={() => setScreen("contact")}
-          disabled={isPending}
-        >
-          <div className="flex items-center gap-x-2">
-            <PhoneIcon className="size-4" />
-            <span>Call us</span>
-          </div>
+        {widgetSettings && widgetSettings.phoneNumber && (
+          <Button
+            className="h-16 w-full justify-between"
+            variant="outline"
+            onClick={() => setScreen("contact")}
+            disabled={isPending}
+          >
+            <div className="flex items-center gap-x-2">
+              <PhoneIcon className="size-4" />
+              <span>Liên hệ qua điện thoại</span>
+            </div>
 
-          <ChevronRightIcon />
-        </Button>
+            <ChevronRightIcon />
+          </Button>
+        )}
       </div>
       <WidgetFooter />
     </>

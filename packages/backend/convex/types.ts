@@ -7,6 +7,7 @@ export type WidgetSettingsType = {
     suggestion3: string;
   };
   theme: string;
+  phoneNumber: string;
 };
 
 export type WebhookTransactionType = {

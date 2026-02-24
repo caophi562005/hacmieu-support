@@ -81,10 +81,10 @@ export const ContactPanel = () => {
       {
         id: "device-info",
         icon: MonitorIcon,
-        title: "Device Information",
+        title: "Thông tin thiết bị",
         items: [
           {
-            label: "Browser",
+            label: "Trình duyệt",
             value:
               userAgentInfo.browser +
               (userAgentInfo.browserVersion
@@ -92,13 +92,13 @@ export const ContactPanel = () => {
                 : ""),
           },
           {
-            label: "OS",
+            label: "Hệ điều hành",
             value:
               userAgentInfo.os +
               (userAgentInfo.osVersion ? `${userAgentInfo.osVersion}` : ""),
           },
           {
-            label: "Device",
+            label: "Thiết bị",
             value:
               userAgentInfo.device +
               (userAgentInfo.deviceModel
@@ -107,52 +107,50 @@ export const ContactPanel = () => {
             className: "capitalize",
           },
           {
-            label: "Screen",
+            label: "Màn hình",
             value: contactSession.metadata.screenResolution,
           },
           {
-            label: "Viewport",
+            label: "Khung nhìn",
             value: contactSession.metadata.viewportSize,
           },
           {
             label: "Cookies",
-            value: contactSession.metadata.cookieEnabled
-              ? "Enabled"
-              : "Disabled",
+            value: contactSession.metadata.cookieEnabled ? "Bật" : "Tắt",
           },
         ],
       },
       {
         id: "location-info",
         icon: GlobeIcon,
-        title: "Location & Languages",
+        title: "Vị trí & Ngôn ngữ",
         items: [
           ...(countryInfo
-            ? [{ label: "Country", value: <span>{countryInfo.name}</span> }]
+            ? [{ label: "Quốc gia", value: <span>{countryInfo.name}</span> }]
             : []),
           {
-            label: "Language",
+            label: "Ngôn ngữ",
             value: contactSession.metadata.language,
           },
           {
-            label: "Timezone",
+            label: "Múi giờ",
             value: contactSession.metadata.timezone,
           },
           {
-            label: "UTC Offset",
+            label: "Độ lệch UTC",
             value: contactSession.metadata.timezoneOffset
-              ? `${-contactSession.metadata.timezoneOffset / 60} hours`
+              ? `${-contactSession.metadata.timezoneOffset / 60} giờ`
               : "",
           },
         ],
       },
       {
         id: "section-details",
-        title: "Section details",
+        title: "Chi tiết phiên",
         icon: ClockIcon,
         items: [
           {
-            label: "Session Started",
+            label: "Bắt đầu phiên",
             value: new Date(contactSession._creationTime).toLocaleString(),
           },
         ],
@@ -190,7 +188,7 @@ export const ContactPanel = () => {
         <Button asChild className="w-full" size="lg">
           <Link href={`mailto:${contactSession.email}`}>
             <MailIcon />
-            <span>Send Email</span>
+            <span>Gửi Email</span>
           </Link>
         </Button>
       </div>

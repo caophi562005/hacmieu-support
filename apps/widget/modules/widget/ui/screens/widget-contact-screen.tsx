@@ -7,12 +7,17 @@ import { Button } from "@workspace/ui/components/button";
 
 import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
 
-import { screenAtom } from "@/modules/widget/atoms/widget-atom";
+import {
+  screenAtom,
+  widgetSettingsAtom,
+} from "@/modules/widget/atoms/widget-atom";
+import { useAtomValue } from "jotai";
 
 export const WidgetContactScreen = () => {
   const setScreen = useSetAtom(screenAtom);
+  const widgetSettings = useAtomValue(widgetSettingsAtom);
 
-  const phoneNumber = "0000000000";
+  const phoneNumber = widgetSettings?.phoneNumber;
 
   const [copied, setCopied] = useState(false);
   const handleCopy = async () => {
@@ -43,7 +48,7 @@ export const WidgetContactScreen = () => {
             <ArrowLeftIcon />
           </Button>
 
-          <p>Contact Us</p>
+          <p>Liên hệ</p>
         </div>
       </WidgetHeader>
 
@@ -52,7 +57,7 @@ export const WidgetContactScreen = () => {
           <PhoneIcon className="size-6 text-muted-foreground" />
         </div>
 
-        <p className="text-muted-foreground">Available 24/7</p>
+        <p className="text-muted-foreground">Hỗ trợ 24/7</p>
         <p className="font-bold text-2xl">{phoneNumber}</p>
       </div>
 
@@ -67,12 +72,12 @@ export const WidgetContactScreen = () => {
             {copied ? (
               <>
                 <CheckIcon className="mr-2 size-4" />
-                Copied!
+                Đã sao chép!
               </>
             ) : (
               <>
                 <CopyIcon className="mr-2 size-4" />
-                Copy Number
+                Sao chép số
               </>
             )}
           </Button>
@@ -80,7 +85,7 @@ export const WidgetContactScreen = () => {
           <Button asChild className="w-full" size="lg">
             <Link href={`tel:${phoneNumber}`}>
               <PhoneIcon />
-              Call Now
+              Gọi ngay
             </Link>
           </Button>
         </div>

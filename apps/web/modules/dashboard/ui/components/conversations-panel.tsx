@@ -74,34 +74,34 @@ export const ConversationsPanel = () => {
           value={statusFilter}
         >
           <SelectTrigger className="h-8 border-none px-1.5 shadow-none ring-0 hover:bg-accent hover:text-accent-foreground focus-visible:ring-0">
-            <SelectValue placeholder="Filter" />
+            <SelectValue placeholder="Lọc" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">
               <div className="flex items-center gap-2">
                 <ListIcon className="size-4" />
-                <span>All</span>
+                <span>Tất cả</span>
               </div>
             </SelectItem>
 
             <SelectItem value="unresolved">
               <div className="flex items-center gap-2">
                 <ArrowRightIcon className="size-4" />
-                <span>Unresolved</span>
+                <span>Chưa xử lý</span>
               </div>
             </SelectItem>
 
             <SelectItem value="escalated">
               <div className="flex items-center gap-2">
                 <ArrowUpIcon className="size-4" />
-                <span>Escalated</span>
+                <span>Chuyển cấp trên</span>
               </div>
             </SelectItem>
 
             <SelectItem value="resolved">
               <div className="flex items-center gap-2">
                 <CheckIcon className="size-4" />
-                <span>Resolved</span>
+                <span>Đã xử lý</span>
               </div>
             </SelectItem>
           </SelectContent>

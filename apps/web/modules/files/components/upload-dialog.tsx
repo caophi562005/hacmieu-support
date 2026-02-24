@@ -88,17 +88,16 @@ export const UploadDialog = ({ open, onOpenChange, onFileUploaded }: Props) => {
     <Dialog onOpenChange={onOpenChange} open={open}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Upload Document</DialogTitle>
+          <DialogTitle>Tải lên tài liệu</DialogTitle>
 
           <DialogDescription>
-            Upload documents to your knowledge base for AI-powered search and
-            retrieval
+            Tải lên tài liệu vào khoa dữ liệu để AI có thể tìm kiếm và tham khảo
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="category">Category</Label>
+            <Label htmlFor="category">Danh mục</Label>
             <Input
               className="w-full"
               id="category"
@@ -108,7 +107,7 @@ export const UploadDialog = ({ open, onOpenChange, onFileUploaded }: Props) => {
                   category: e.target.value,
                 }))
               }
-              placeholder="e.g. Documentation, Support, etc."
+              placeholder="VD: Hướng dẫn, Hỗ trợ, v.v."
               type="text"
               value={uploadForm.category}
             />
@@ -116,8 +115,8 @@ export const UploadDialog = ({ open, onOpenChange, onFileUploaded }: Props) => {
 
           <div className="space-y-2">
             <Label htmlFor="filename">
-              Filename{" "}
-              <span className="text-muted-foreground text-xs">(optional)</span>
+              Tên file{" "}
+              <span className="text-muted-foreground text-xs">(tùy chọn)</span>
             </Label>
             <Input
               className="w-full"
@@ -128,7 +127,7 @@ export const UploadDialog = ({ open, onOpenChange, onFileUploaded }: Props) => {
                   filename: e.target.value,
                 }))
               }
-              placeholder="Override filename"
+              placeholder="Ghi đè tên file"
               type="text"
               value={uploadForm.filename}
             />
@@ -158,7 +157,7 @@ export const UploadDialog = ({ open, onOpenChange, onFileUploaded }: Props) => {
             disabled={isUploading}
             onClick={handleCancel}
           >
-            Cancel
+            Hủy
           </Button>
 
           <Button
@@ -167,7 +166,7 @@ export const UploadDialog = ({ open, onOpenChange, onFileUploaded }: Props) => {
             }
             onClick={handleUpload}
           >
-            {isUploading ? "Uploading..." : "Upload"}
+            {isUploading ? "Đang tải lên..." : "Tải lên"}
           </Button>
         </DialogFooter>
       </DialogContent>

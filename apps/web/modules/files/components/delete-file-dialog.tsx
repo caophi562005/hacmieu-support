@@ -49,9 +49,9 @@ export const DeleteFileDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Delete File</DialogTitle>
+          <DialogTitle>Xóa tài liệu</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete this file?
+            Bạn có chắc chắn muốn xóa tài liệu này không?
           </DialogDescription>
         </DialogHeader>
 
@@ -60,7 +60,7 @@ export const DeleteFileDialog = ({
             <div className="rounded-lg border bg-muted/50 p-4">
               <p className="font-medium">{file.name}</p>
               <p className="text-muted-foreground text-sm">
-                Type : {file.type.toUpperCase()} | Size : {file.size}
+                Định dạng : {file.type.toUpperCase()} | Kích thước : {file.size}
               </p>
             </div>
           </div>
@@ -72,7 +72,7 @@ export const DeleteFileDialog = ({
             onClick={() => onOpenChange(false)}
             disabled={isDeleting}
           >
-            Cancel
+            Hủy
           </Button>
 
           <Button
@@ -80,7 +80,7 @@ export const DeleteFileDialog = ({
             disabled={isDeleting || !file}
             variant={"destructive"}
           >
-            {isDeleting ? "Deleting..." : "Delete"}
+            {isDeleting ? "Đang xóa..." : "Xóa"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -1,8 +1,7 @@
 import { Providers } from "@/components/providers";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
-import "@workspace/ui/globals.css";
-import "@workspace/ui/themes/bubblegum.css";
+import "@workspace/ui/web.css";
 import { Toaster } from "sonner";
 
 export default function RootLayout({

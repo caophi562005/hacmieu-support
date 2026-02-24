@@ -82,7 +82,8 @@ export const create = action({
         message: {
           text: text,
           role: "assistant",
-          _creationTime: savedMessages![0]._creationTime,
+          _creationTime:
+            (savedMessages?.[0]?._creationTime as number) ?? Date.now(),
         },
       });
     } else {

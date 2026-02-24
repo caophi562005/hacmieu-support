@@ -83,16 +83,16 @@ export const FilesView = () => {
       <div className="flex min-h-screen flex-col bg-muted p-8">
         <div className="mx-auto w-full max-w-screen-md">
           <div className="space-y-2">
-            <h1 className="text-2xl md:text-4xl">Knowledge Base</h1>
+            <h1 className="text-2xl md:text-4xl">Tài liệu đào tạo AI</h1>
             <p className="text-muted-foreground">
-              Upload and manage your AI assistant
+              Tải lên và quản lý dữ liệu cho trợ lý AI của bạn
             </p>
 
             <div className="mt-8 rounded-lg border bg-background">
               <div className="flex items-center justify-end border-b px-6 py-4">
                 <Button onClick={() => setUploadDialogOpen(true)}>
                   <PlusIcon />
-                  Add new
+                  Thêm mới
                 </Button>
               </div>
 
@@ -100,16 +100,16 @@ export const FilesView = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="px-6 py-4 font-medium">
-                      Name
+                      Tên file
                     </TableHead>
                     <TableHead className="px-6 py-4 font-medium">
-                      Type
+                      Định dạng
                     </TableHead>
                     <TableHead className="px-6 py-4 font-medium">
-                      Size
+                      Kích thước
                     </TableHead>
                     <TableHead className="px-6 py-4 font-medium">
-                      Actions
+                      Thao tác
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -120,7 +120,7 @@ export const FilesView = () => {
                       return (
                         <TableRow>
                           <TableCell className="h-24 text-center" colSpan={4}>
-                            Loading files...
+                            Đang tải tài liệu...
                           </TableCell>
                         </TableRow>
                       );
@@ -130,7 +130,7 @@ export const FilesView = () => {
                       return (
                         <TableRow>
                           <TableCell className="h-24 text-center" colSpan={4}>
-                            No files found
+                            Không tìm thấy tài liệu nào
                           </TableCell>
                         </TableRow>
                       );
@@ -179,7 +179,7 @@ export const FilesView = () => {
                                 onClick={() => handleDeleteClick(file)}
                               >
                                 <TrashIcon className="size-4 mr-2" />
-                                Delete
+                                Xóa
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>

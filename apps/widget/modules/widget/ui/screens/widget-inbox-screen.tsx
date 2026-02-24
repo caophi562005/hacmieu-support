@@ -60,7 +60,7 @@ export const WidgetInboxScreen = () => {
           >
             <ArrowLeftIcon />
           </Button>
-          <p>Inbox</p>
+          <p>Hộp thư</p>
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col gap-y-2 p-4 overflow-auto">
@@ -77,7 +77,7 @@ export const WidgetInboxScreen = () => {
             >
               <div className="flex w-full flex-col gap-4 overflow-hidden text-start">
                 <div className="flex w-full items-center justify-between gap-x-2">
-                  <p className="text-muted-foreground text-xs">Chat</p>
+                  <p className="text-muted-foreground text-xs">Hội thoại</p>
                   <p className="text-muted-foreground text-xs">
                     {conversation.lastMessage &&
                       formatDistanceToNow(

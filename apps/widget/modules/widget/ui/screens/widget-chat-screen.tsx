@@ -47,7 +47,7 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 
 const formSchema = z.object({
-  message: z.string().min(1, "Message is required"),
+  message: z.string().min(1, "Vui lòng nhập tin nhắn"),
 });
 
 export const WidgetChatScreen = () => {
@@ -210,8 +210,8 @@ export const WidgetChatScreen = () => {
                   }}
                   placeholder={
                     conversation?.status === "resolved"
-                      ? "This conversation has been resolved"
-                      : "Type your message..."
+                      ? "Hội thoại này đã kết thúc"
+                      : "Nhập tin nhắn..."
                   }
                   value={field.value}
                 />

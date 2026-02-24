@@ -1,15 +1,9 @@
 import { v } from "convex/values";
-
-import { createClerkClient } from "@clerk/backend";
-import { action } from "../_generated/server";
+import { internalQuery, mutation, query } from "../_generated/server";
 import { WidgetSettingsType } from "../types";
 import { validateOperator } from "../validate";
 
-const clerkClient = createClerkClient({
-  secretKey: process.env.CLERK_SECRET_KEY || "",
-});
-
-export const upsert = action({
+export const upsert = mutation({
   args: {
     greetingMessage: v.string(),
     defaultSuggestions: v.object({
@@ -18,46 +12,63 @@ export const upsert = action({
       suggestion3: v.optional(v.string()),
     }),
     theme: v.string(),
+    phoneNumber: v.string(),
   },
   handler: async (ctx, args) => {
     try {
       const { orgId } = await validateOperator(ctx);
 
-      await clerkClient.organizations.updateOrganization(orgId, {
-        publicMetadata: {
-          widgetSettings: {
-            greetingMessage: args.greetingMessage,
-            defaultSuggestions: args.defaultSuggestions,
-            theme: args.theme,
-          },
-        },
-      });
+      const existing = await ctx.db
+        .query("widgetSettings")
+        .withIndex("by_organization_id", (q) => q.eq("organizationId", orgId))
+        .first();
+
+      if (existing) {
+        await ctx.db.patch(existing._id, {
+          greetingMessage: args.greetingMessage,
+          defaultSuggestions: args.defaultSuggestions,
+          theme: args.theme,
+          phoneNumber: args.phoneNumber,
+        });
+      } else {
+        await ctx.db.insert("widgetSettings", {
+          organizationId: orgId,
+          greetingMessage: args.greetingMessage,
+          defaultSuggestions: args.defaultSuggestions,
+          theme: args.theme,
+          phoneNumber: args.phoneNumber,
+        });
+      }
     } catch (error) {
       console.error(error);
     }
   },
 });
 
-export const getOne = action({
+export const getOne = query({
   args: {},
   handler: async (ctx) => {
     try {
       const { orgId } = await validateOperator(ctx);
 
-      const organization = await clerkClient.organizations.getOrganization({
-        organizationId: orgId,
-      });
+      const settings = await ctx.db
+        .query("widgetSettings")
+        .withIndex("by_organization_id", (q) => q.eq("organizationId", orgId))
+        .first();
 
-      if (organization) {
+      if (settings) {
         return {
           valid: true,
-          widgetSettings: organization.publicMetadata
-            ?.widgetSettings as WidgetSettingsType,
+          widgetSettings: {
+            greetingMessage: settings.greetingMessage,
+            defaultSuggestions: settings.defaultSuggestions,
+            theme: settings.theme,
+          } as WidgetSettingsType,
         };
       } else {
         return {
-          valid: false,
-          reason: "Organization not found",
+          valid: true,
+          widgetSettings: undefined,
         };
       }
     } catch (error) {
@@ -66,5 +77,17 @@ export const getOne = action({
         reason: "Organization not found",
       };
     }
+  },
+});
+
+export const getSettingsForOrg = internalQuery({
+  args: { organizationId: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("widgetSettings")
+      .withIndex("by_organization_id", (q) =>
+        q.eq("organizationId", args.organizationId),
+      )
+      .first();
   },
 });

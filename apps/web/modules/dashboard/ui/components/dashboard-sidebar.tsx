@@ -27,13 +27,13 @@ import { usePathname } from "next/navigation";
 
 const customerSupportItems = [
   {
-    title: "Conversations",
+    title: "Hội thoại",
     url: "/conversations",
     icon: InboxIcon,
     badge: "12",
   },
   {
-    title: "Knowledge Base",
+    title: "Tài liệu đào tạo AI",
     url: "/files",
     icon: LibraryBigIcon,
   },
@@ -41,12 +41,12 @@ const customerSupportItems = [
 
 const configurationItems = [
   {
-    title: "Widget Customization",
+    title: "Tuỳ chỉnh Giao diện",
     url: "/customization",
     icon: PaletteIcon,
   },
   {
-    title: "Integrations",
+    title: "Tích hợp",
     url: "/integrations",
     icon: LayoutDashboardIcon,
   },
@@ -54,7 +54,7 @@ const configurationItems = [
 
 const accountItems = [
   {
-    title: "Plans & Billing",
+    title: "Gói cước & Thanh toán",
     url: "/billing",
     icon: CreditCardIcon,
   },
@@ -101,7 +101,7 @@ export const DashboardSidebar = () => {
       <SidebarContent>
         {/* Customer support */}
         <SidebarGroup>
-          <SidebarGroupLabel>Customer Support</SidebarGroupLabel>
+          <SidebarGroupLabel>Hỗ trợ Khách hàng</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {customerSupportItems.map((item) => (
@@ -110,7 +110,8 @@ export const DashboardSidebar = () => {
                     asChild
                     tooltip={item.title}
                     className={cn(
-                      isActive(item.url) && "text-sidebar-primary-foreground",
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!",
                     )}
                     isActive={isActive(item.url)}
                   >
@@ -127,7 +128,7 @@ export const DashboardSidebar = () => {
 
         {/* Configuration */}
         <SidebarGroup>
-          <SidebarGroupLabel>Configuration</SidebarGroupLabel>
+          <SidebarGroupLabel>Cấu hình</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {configurationItems.map((item) => (
@@ -137,7 +138,8 @@ export const DashboardSidebar = () => {
                     tooltip={item.title}
                     isActive={isActive(item.url)}
                     className={cn(
-                      isActive(item.url) && "text-sidebar-primary-foreground",
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!",
                     )}
                   >
                     <Link href={item.url}>
@@ -153,7 +155,7 @@ export const DashboardSidebar = () => {
 
         {/* Account */}
         <SidebarGroup>
-          <SidebarGroupLabel>Account</SidebarGroupLabel>
+          <SidebarGroupLabel>Tài khoản</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {accountItems.map((item) => (
@@ -163,7 +165,8 @@ export const DashboardSidebar = () => {
                     tooltip={item.title}
                     isActive={isActive(item.url)}
                     className={cn(
-                      isActive(item.url) && "text-sidebar-primary-foreground",
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!",
                     )}
                   >
                     <Link href={item.url}>

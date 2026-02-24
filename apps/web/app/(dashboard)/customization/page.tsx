@@ -7,7 +7,7 @@ import { CustomizationView } from "@/modules/customization/ui/views/customizatio
 const Page = () => {
   return (
     <Protect
-      plan="pro"
+      plan="Pro"
       fallback={
         <PremiumFeatureOverlay>
           <CustomizationView />

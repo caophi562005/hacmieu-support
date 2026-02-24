@@ -22,8 +22,8 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 
 const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email"),
+  name: z.string().min(1, "Vui lòng nhập tên"),
+  email: z.string().email("Email không hợp lệ"),
 });
 
 export const WidgetAuthScreen = () => {
@@ -75,8 +75,8 @@ export const WidgetAuthScreen = () => {
     <>
       <WidgetHeader>
         <div className="flex flex-col justify-between gap-y-2 px-2 py-6 font-semibold ">
-          <p className="text-3xl">Hi there! 👋</p>
-          <p className="text-lg">Let's get you started</p>
+          <p className="text-3xl">Xin chào! 👋</p>
+          <p className="text-lg">Hãy bắt đầu nào</p>
         </div>
       </WidgetHeader>
       <Form {...form}>
@@ -92,7 +92,7 @@ export const WidgetAuthScreen = () => {
                 <FormControl>
                   <Input
                     className="h-10 bg-background"
-                    placeholder="e.g. John Doe"
+                    placeholder="VD: Nguyễn Văn A"
                     type="text"
                     {...field}
                   />
@@ -110,7 +110,7 @@ export const WidgetAuthScreen = () => {
                 <FormControl>
                   <Input
                     className="h-10 bg-background"
-                    placeholder="e.g. john@gmail.com"
+                    placeholder="VD: nguyen@gmail.com"
                     type="email"
                     {...field}
                   />
@@ -124,7 +124,7 @@ export const WidgetAuthScreen = () => {
             type="submit"
             size={"lg"}
           >
-            Continue
+            Tiếp tục
           </Button>
         </form>
       </Form>

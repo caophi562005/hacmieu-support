@@ -9,11 +9,13 @@
  */
 
 import type * as constants from "../constants.js";
+import type * as http from "../http.js";
 import type * as libs_extractTextContent from "../libs/extractTextContent.js";
 import type * as private_contactSessions from "../private/contactSessions.js";
 import type * as private_conversations from "../private/conversations.js";
 import type * as private_files from "../private/files.js";
 import type * as private_messages from "../private/messages.js";
+import type * as private_payments from "../private/payments.js";
 import type * as private_subscriptions from "../private/subscriptions.js";
 import type * as private_widgetSettings from "../private/widgetSettings.js";
 import type * as public_contactSession from "../public/contactSession.js";
@@ -29,6 +31,7 @@ import type * as system_ai_tools_search from "../system/ai/tools/search.js";
 import type * as system_contactSessions from "../system/contactSessions.js";
 import type * as system_conversations from "../system/conversations.js";
 import type * as system_messages from "../system/messages.js";
+import type * as system_payments from "../system/payments.js";
 import type * as types from "../types.js";
 import type * as validate from "../validate.js";
 
@@ -40,11 +43,13 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   constants: typeof constants;
+  http: typeof http;
   "libs/extractTextContent": typeof libs_extractTextContent;
   "private/contactSessions": typeof private_contactSessions;
   "private/conversations": typeof private_conversations;
   "private/files": typeof private_files;
   "private/messages": typeof private_messages;
+  "private/payments": typeof private_payments;
   "private/subscriptions": typeof private_subscriptions;
   "private/widgetSettings": typeof private_widgetSettings;
   "public/contactSession": typeof public_contactSession;
@@ -60,6 +65,7 @@ declare const fullApi: ApiFromModules<{
   "system/contactSessions": typeof system_contactSessions;
   "system/conversations": typeof system_conversations;
   "system/messages": typeof system_messages;
+  "system/payments": typeof system_payments;
   types: typeof types;
   validate: typeof validate;
 }>;

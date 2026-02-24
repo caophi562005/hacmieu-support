@@ -16,7 +16,7 @@ export const ConversationStatusButton = ({
 }: Props) => {
   if (status === "resolved") {
     return (
-      <Hint text="Mark as unresolved">
+      <Hint text="Đánh dấu là Chưa xử lý">
         <Button
           disabled={disabled}
           variant={"tertiary"}
@@ -24,7 +24,7 @@ export const ConversationStatusButton = ({
           onClick={onClick}
         >
           <CheckIcon />
-          Resolved
+          Đã xử lý
         </Button>
       </Hint>
     );
@@ -32,7 +32,7 @@ export const ConversationStatusButton = ({
 
   if (status === "escalated") {
     return (
-      <Hint text="Mark as resolved">
+      <Hint text="Đánh dấu là Đã xử lý">
         <Button
           disabled={disabled}
           variant={"warning"}
@@ -40,14 +40,14 @@ export const ConversationStatusButton = ({
           onClick={onClick}
         >
           <ArrowUpIcon />
-          Escalated
+          Chuyển cấp trên
         </Button>
       </Hint>
     );
   }
 
   return (
-    <Hint text="Mark as escalated">
+    <Hint text="Đánh dấu là Chuyển cấp trên">
       <Button
         disabled={disabled}
         variant={"destructive"}
@@ -55,7 +55,7 @@ export const ConversationStatusButton = ({
         onClick={onClick}
       >
         <ArrowRightIcon />
-        Unresolved
+        Chưa xử lý
       </Button>
     </Hint>
   );

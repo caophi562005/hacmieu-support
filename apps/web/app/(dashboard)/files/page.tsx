@@ -6,7 +6,7 @@ import { FilesView } from "@/modules/files/ui/views/files-view";
 const Page = () => {
   return (
     <Protect
-      plan="pro"
+      plan="Pro"
       fallback={
         <PremiumFeatureOverlay>
           <FilesView />

@@ -2,23 +2,76 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  widgetSettings: defineTable({
+    organizationId: v.string(),
+    greetingMessage: v.string(),
+    defaultSuggestions: v.object({
+      suggestion1: v.optional(v.string()),
+      suggestion2: v.optional(v.string()),
+      suggestion3: v.optional(v.string()),
+    }),
+    theme: v.string(),
+    phoneNumber: v.string(),
+  }).index("by_organization_id", ["organizationId"]),
+
   subscriptions: defineTable({
     organizationId: v.string(),
     plan: v.string(),
-    expiresAt: v.number(),
-  }).index("by_organization_id", ["organizationId"]),
+
+    status: v.union(
+      v.literal("active"),
+      v.literal("canceled"),
+      v.literal("past_due"),
+      v.literal("unpaid"),
+    ),
+
+    interval: v.union(v.literal("month"), v.literal("year")),
+
+    currentPeriodStart: v.number(),
+    currentPeriodEnd: v.number(),
+
+    cancelAtPeriodEnd: v.boolean(),
+
+    providerSubscriptionId: v.optional(v.string()),
+    providerCustomerId: v.optional(v.string()),
+  })
+    .index("by_organization_id", ["organizationId"])
+    .index("by_status", ["status"]),
 
   payment: defineTable({
     organizationId: v.string(),
+
+    subscriptionId: v.optional(v.id("subscriptions")),
+
     amount: v.number(),
+    currency: v.optional(v.string()),
+
+    code: v.string(),
+    plan: v.optional(v.string()),
+    interval: v.optional(v.union(v.literal("month"), v.literal("year"))),
+
     status: v.union(
       v.literal("pending"),
       v.literal("success"),
       v.literal("failed"),
+      v.literal("refunded"),
     ),
-    type: v.union(v.literal("subscription"), v.literal("one_time")),
+
+    type: v.union(
+      v.literal("subscription_creation"),
+      v.literal("subscription_renewal"),
+      v.literal("one_time"),
+    ),
+
     paymentMethod: v.union(v.literal("qr"), v.literal("credit_card")),
-  }).index("by_organization_id", ["organizationId"]),
+
+    paidAt: v.optional(v.number()),
+
+    providerTransactionId: v.optional(v.string()),
+  })
+    .index("by_organization_id", ["organizationId"])
+    .index("by_subscription_id", ["subscriptionId"])
+    .index("by_code", ["code"]),
 
   conversations: defineTable({
     threadId: v.string(),

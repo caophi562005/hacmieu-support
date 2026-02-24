@@ -21,7 +21,14 @@ export const Protect = ({ children, fallback, plan }: ProtectProps) => {
     return <>{fallback}</>;
   }
 
-  if (subscription.expiresAt && subscription.expiresAt < Date.now()) {
+  if (subscription.status !== "active" && subscription.status !== "canceled") {
+    return <>{fallback}</>;
+  }
+
+  if (
+    subscription.currentPeriodEnd &&
+    subscription.currentPeriodEnd < Date.now()
+  ) {
     return <>{fallback}</>;
   }
 
