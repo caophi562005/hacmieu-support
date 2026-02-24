@@ -104,7 +104,7 @@ export const WidgetChatScreen = () => {
   };
 
   const suggestions = useMemo(() => {
-    if (!widgetSettings) {
+    if (!widgetSettings?.defaultSuggestions) {
       return [];
     }
 

@@ -11,7 +11,7 @@ export default defineSchema({
       suggestion3: v.optional(v.string()),
     }),
     theme: v.string(),
-    phoneNumber: v.string(),
+    phoneNumber: v.optional(v.string()),
   }).index("by_organization_id", ["organizationId"]),
 
   subscriptions: defineTable({

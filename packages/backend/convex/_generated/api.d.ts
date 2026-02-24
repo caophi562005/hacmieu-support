@@ -32,6 +32,7 @@ import type * as system_contactSessions from "../system/contactSessions.js";
 import type * as system_conversations from "../system/conversations.js";
 import type * as system_messages from "../system/messages.js";
 import type * as system_payments from "../system/payments.js";
+import type * as system_subscriptions from "../system/subscriptions.js";
 import type * as types from "../types.js";
 import type * as validate from "../validate.js";
 
@@ -66,6 +67,7 @@ declare const fullApi: ApiFromModules<{
   "system/conversations": typeof system_conversations;
   "system/messages": typeof system_messages;
   "system/payments": typeof system_payments;
+  "system/subscriptions": typeof system_subscriptions;
   types: typeof types;
   validate: typeof validate;
 }>;
