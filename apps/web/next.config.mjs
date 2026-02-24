@@ -9,6 +9,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/conversations",
+        permanent: true, // true (308) for permanent redirect, false (307) for temporary
+      },
+    ];
+  },
 };
 
 export default nextConfig;
